@@ -128,7 +128,11 @@ export default function Game(){
       <Status Xplaying={Xplaying} gameState={gameState}/>
       <ol>
         {history.map((val, index)=>{
-          if(index>0)
+          if(index === history.length-1)
+          return (
+            <li key={index}>You are at move {index}</li>
+            );
+          else if(index>0)
             return (
                     <li key={index}><button onClick={()=>handleHistory(index)}>Go to Move {index}</button></li>
                   );
