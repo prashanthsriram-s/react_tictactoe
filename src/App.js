@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+// import { Fragment } from 'react';
 // function App() {
 //   return (
 //     <div className="App">
@@ -19,54 +20,46 @@ function Square({value, onClick}){
   );
 }
 
-function Status({Xplaying, gameState, resetFunc}){
+function Status({Xplaying, gameState}){
   if(gameState === 'playing')
     return (
-    <>
     <div className='status'>
       Turn for: {Xplaying ? 'X' : 'O'}
     </div>
-    <button onClick={resetFunc}>Reset</button>
-    </>
+    
     );
   else return (
-    <>
     <div className='status'>{gameState}</div>
-    <button onClick={resetFunc}>Reset</button>
-    </>
     );
 }
 
-export default function Board(){
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [Xplaying, setXplaying] = useState(true);
-  const [gameState, setGameState] = useState('playing'); // {'playing', 'X won', 'O won', 'draw'}
+function Board({board, handleClick}){
+  // const [board, setBoard] = useState(Array(9).fill(null));
+  
+  
+    // if(board[i]) return;
+    // if(gameState !== 'playing') return;
+    // let newBoard;
+    // if(Xplaying)
+    //   newBoard = (board.map((sq, j) => j === i ? 'X' : sq));
+    // else newBoard = (board.map((sq, j) => j === i ? 'O' : sq));
+    // setBoard(newBoard);
+    // setXplaying(!Xplaying);
+    // const winner = calculateWinner(newBoard);
+    // if(winner === 'X')
+    // {
+    //   setGameState('X won');
+    // }
+    // else if(winner === 'O')
+    //   setGameState('O won');
+    // else if(!board.includes(null))
+    //   setGameState('draw');
 
-  function handleClick(i){
-    if(board[i]) return;
-    if(gameState !== 'playing') return;
-    let newBoard;
-    if(Xplaying)
-      newBoard = (board.map((sq, j) => j === i ? 'X' : sq));
-    else newBoard = (board.map((sq, j) => j === i ? 'O' : sq));
-    setBoard(newBoard);
-    setXplaying(!Xplaying);
-    const winner = calculateWinner(newBoard);
-    if(winner === 'X')
-    {
-      setGameState('X won');
-    }
-    else if(winner === 'O')
-      setGameState('O won');
-    else if(!board.includes(null))
-      setGameState('draw');
-  }
-
-  function reset(){
-    setBoard(Array(9).fill(null));
-    setXplaying(true);
-    setGameState('playing');
-  }
+  // function reset(){
+  //   setBoard(Array(9).fill(null));
+  //   setXplaying(true);
+  //   setGameState('playing');
+  // }
 
   return (
     <>
@@ -85,8 +78,67 @@ export default function Board(){
       <Square value={board[7]} onClick={()=>handleClick(7)}/>
       <Square value={board[8]} onClick={()=>handleClick(8)}/>
     </div>
-    <Status Xplaying={Xplaying} gameState={gameState} resetFunc={reset}/>
     </>
+  );
+}
+
+export default function Game(){
+  const [Xplaying, setXplaying] = useState(true);
+  const [gameState, setGameState] = useState('playing'); // {'playing', 'X won', 'O won', 'draw'}
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currSquares = history[history.length - 1];
+
+  function updateGameState(squares)
+  {
+    const winner = calculateWinner(squares);
+    if(winner === 'X')
+    {
+      setGameState('X won');
+    }
+    else if(winner === 'O')
+      setGameState('O won');
+    else if(!squares.includes(null))
+      setGameState('draw');
+    else setGameState('playing');
+  }
+  function handlePlay(i)
+  {
+    if(currSquares[i]) return;
+    if(gameState !== 'playing') return;
+    let newBoard;
+    if(Xplaying)
+      newBoard = (currSquares.map((sq, j) => j === i ? 'X' : sq));
+    else newBoard = (currSquares.map((sq, j) => j === i ? 'O' : sq));
+    setHistory([...history, newBoard]);
+    setXplaying(!Xplaying);
+    updateGameState(newBoard);
+  }
+  function handleHistory(i)
+  {
+    setHistory(history.slice(0, i+1));
+    setXplaying(i%2===0);
+    updateGameState(history[i]);
+  }
+  return (
+    <div className='game'>
+      <div className='game-board'>
+        <Board board={currSquares}  handleClick={(i)=>{handlePlay(i);}}/>
+      </div>
+      <div className='game-info'>
+      <Status Xplaying={Xplaying} gameState={gameState}/>
+      <ol>
+        {history.map((val, index)=>{
+          if(index>0)
+            return (
+                    <li key={index}><button onClick={()=>handleHistory(index)}>Go to Move {index}</button></li>
+                  );
+          else return(
+            <li key={index}><button onClick={()=>handleHistory(index)}>Go to Start</button></li>
+          )
+        })}
+      </ol>
+      </div>
+    </div>
   );
 }
 
