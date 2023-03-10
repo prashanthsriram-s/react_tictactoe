@@ -4,6 +4,7 @@
 
 body {
   font-family: sans-serif;
+  background-color: 'lavender';
   margin: 20px;
   padding: 0;
 }
@@ -52,13 +53,29 @@ ul {
 
 body {
   font-family: sans-serif;
+  background-color: 'lavender';
   margin: 20px;
   padding: 0;
 }
 
+header{
+  text-align: center;
+  padding: 1px;
+  /* background-color: rgb(122, 131, 233); */
+  color: black;
+}
+
+footer {
+  text-align: center;
+  padding: 3px;
+  /* background-color: rgb(215, 45, 76); */
+  color: black;
+}
+
+
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: #759ed7;
+  border: 1px solid #251414;
   float: left;
   font-size: 24px;
   font-weight: bold;

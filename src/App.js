@@ -1,16 +1,4 @@
-// import logo from './logo.svg';
-import './App.css';
 import { useState } from 'react';
-// import { Fragment } from 'react';
-// function App() {
-//   return (
-//     <div className="App">
-//     </div>
-//   );
-// }
-
-// export default App;
-
 
 function Square({value, onClick}){
   return (
@@ -34,33 +22,6 @@ function Status({Xplaying, gameState}){
 }
 
 function Board({board, handleClick}){
-  // const [board, setBoard] = useState(Array(9).fill(null));
-  
-  
-    // if(board[i]) return;
-    // if(gameState !== 'playing') return;
-    // let newBoard;
-    // if(Xplaying)
-    //   newBoard = (board.map((sq, j) => j === i ? 'X' : sq));
-    // else newBoard = (board.map((sq, j) => j === i ? 'O' : sq));
-    // setBoard(newBoard);
-    // setXplaying(!Xplaying);
-    // const winner = calculateWinner(newBoard);
-    // if(winner === 'X')
-    // {
-    //   setGameState('X won');
-    // }
-    // else if(winner === 'O')
-    //   setGameState('O won');
-    // else if(!board.includes(null))
-    //   setGameState('draw');
-
-  // function reset(){
-  //   setBoard(Array(9).fill(null));
-  //   setXplaying(true);
-  //   setGameState('playing');
-  // }
-
   return (
     <>
     <div className='board-row'>
@@ -120,6 +81,9 @@ export default function Game(){
     updateGameState(history[i]);
   }
   return (
+    <>
+    <header><h1>Tic Tac Toe</h1></header>
+    <hr />
     <div className='game'>
       <div className='game-board'>
         <Board board={currSquares}  handleClick={(i)=>{handlePlay(i);}}/>
@@ -143,10 +107,15 @@ export default function Game(){
       </ol>
       </div>
     </div>
+    <hr />
+    <footer>
+      <p>Prashanth Sriram S</p>
+      <a href="https://github.com/prashanthsriram-s/react_tictactoe">View the Source Code Here</a>
+    </footer>
+    </>
   );
 }
 
-//eslint-disable-next-line
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
