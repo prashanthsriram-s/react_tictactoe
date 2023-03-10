@@ -1,3 +1,10 @@
+# React Tic-Tac-Toe Tutorial
+I created a tic tic toe game using React following along the lines of the tutorial on the same.
+Features:
+    1. Shows the turn of the current player
+    2. Shows the timeline of the moves
+    3. Allows going back to previous configuration of the board by clicking on the timeline
+======================================
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
