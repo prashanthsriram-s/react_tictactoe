@@ -1,6 +1,6 @@
 # React Tic-Tac-Toe
 
-I created a tic tic toe game using React following along the lines of the tutorial on the same (https://beta.reactjs.org/learn/tutorial-tic-tac-toe)
+I created a tic tic toe game using React
 
 Features:
 
